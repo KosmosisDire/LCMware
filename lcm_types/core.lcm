@@ -31,3 +31,278 @@ struct ActionStatus {
     int8_t status;
     string message;
 }
+
+// ========================================
+// Basic Data Types
+// ========================================
+
+// Empty message
+struct Empty {
+    Header header;
+}
+
+// Primitive data types
+struct Bool {
+    Header header;
+    boolean value;
+}
+
+struct UInt32 {
+    Header header;
+    int32_t value;
+}
+
+struct UInt64 {
+    Header header;
+    int64_t value;
+}
+
+struct Double {
+    Header header;
+    double value;
+}
+
+struct String {
+    Header header;
+    string value;
+}
+
+// Array types
+struct ByteArray {
+    Header header;
+    int32_t data_size;
+    int8_t data[data_size];
+}
+
+struct IntArray {
+    Header header;
+    int32_t data_size;
+    int32_t data[data_size];
+}
+
+struct DoubleArray {
+    Header header;
+    int32_t data_size;
+    double data[data_size];
+}
+
+struct BoolArray {
+    Header header;
+    int32_t data_size;
+    boolean data[data_size];
+}
+
+struct StringArray {
+    Header header;
+    int32_t data_size;
+    string data[data_size];
+}
+
+// ========================================
+// Service Request/Response Pairs
+// ========================================
+
+// Empty service (ping/health check)
+struct EmptyServiceRequest {
+    Header header;
+}
+
+struct EmptyServiceResponse {
+    ServiceResponseHeader response_header;
+}
+
+// Basic data service requests/responses
+struct BoolServiceRequest {
+    Header header;
+    boolean value;
+}
+
+struct BoolServiceResponse {
+    ServiceResponseHeader response_header;
+    boolean result;
+}
+
+struct UInt32ServiceRequest {
+    Header header;
+    int32_t value;
+}
+
+struct UInt32ServiceResponse {
+    ServiceResponseHeader response_header;
+    int32_t result;
+}
+
+struct UInt64ServiceRequest {
+    Header header;
+    int64_t value;
+}
+
+struct UInt64ServiceResponse {
+    ServiceResponseHeader response_header;
+    int64_t result;
+}
+
+struct DoubleServiceRequest {
+    Header header;
+    double value;
+}
+
+struct DoubleServiceResponse {
+    ServiceResponseHeader response_header;
+    double result;
+}
+
+struct StringServiceRequest {
+    Header header;
+    string value;
+}
+
+struct StringServiceResponse {
+    ServiceResponseHeader response_header;
+    string result;
+}
+
+struct ByteArrayServiceRequest {
+    Header header;
+    int32_t data_size;
+    int8_t data[data_size];
+}
+
+struct ByteArrayServiceResponse {
+    ServiceResponseHeader response_header;
+    int32_t data_size;
+    int8_t data[data_size];
+}
+
+// ========================================
+// Action Types
+// ========================================
+
+// Empty action (for testing/ping)
+struct EmptyActionGoal {
+    Header header;
+}
+
+struct EmptyActionFeedback {
+    Header header;
+    double progress;  // 0.0 to 1.0
+}
+
+struct EmptyActionResult {
+    ActionStatus status;
+}
+
+// Generic timed action (wait/delay)
+struct TimedActionGoal {
+    Header header;
+    double duration_seconds;
+}
+
+struct TimedActionFeedback {
+    Header header;
+    double progress;        // 0.0 to 1.0
+    double elapsed_seconds;
+    double remaining_seconds;
+}
+
+struct TimedActionResult {
+    ActionStatus status;
+    double actual_duration;
+}
+
+// Data processing action
+struct ProcessDataGoal {
+    Header header;
+    string operation;  // "sort", "filter", "transform", etc.
+    int32_t data_size;
+    int8_t data[data_size];
+}
+
+struct ProcessDataFeedback {
+    Header header;
+    double progress;
+    int32_t items_processed;
+    int32_t total_items;
+}
+
+struct ProcessDataResult {
+    ActionStatus status;
+    int32_t result_size;
+    int8_t result[result_size];
+    double processing_time;
+}
+
+// ========================================
+// System Utility Types
+// ========================================
+
+// Key-Value pair
+struct KeyValue {
+    Header header;
+    string key;
+    string value;
+}
+
+struct KeyValueArray {
+    Header header;
+    int32_t pairs_size;
+    string keys[pairs_size];
+    string values[pairs_size];
+}
+
+// Generic command/response
+struct Command {
+    Header header;
+    string command;
+    int32_t args_size;
+    string args[args_size];
+}
+
+struct CommandResponse {
+    ServiceResponseHeader response_header;
+    int32_t exit_code;
+    string stdout_output;
+    string stderr_output;
+}
+
+// File operations
+struct FileRequest {
+    Header header;
+    string operation;  // "read", "write", "delete", "list"
+    string path;
+    int32_t data_size;
+    int8_t data[data_size];  // for write operations
+}
+
+struct FileResponse {
+    ServiceResponseHeader response_header;
+    int32_t data_size;
+    int8_t data[data_size];  // file contents or directory listing
+    int64_t file_size;
+    int64_t modified_time;
+}
+
+// System status
+struct SystemStatus {
+    Header header;
+    string node_name;
+    string status;  // "healthy", "warning", "error", "unknown"
+    double cpu_usage;
+    double memory_usage;
+    double uptime_seconds;
+    int32_t errors_size;
+    string errors[errors_size];
+}
+
+// Heartbeat/ping
+struct Heartbeat {
+    Header header;
+    string node_name;
+    int64_t sequence_number;
+}
+
+struct HeartbeatResponse {
+    ServiceResponseHeader response_header;
+    int64_t server_timestamp_us;
+    string server_name;
+}
