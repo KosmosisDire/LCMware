@@ -1,11 +1,14 @@
 """Constants for LCMware framework"""
 
+from enum import IntEnum
+
 # Client name constraints
 MAX_CLIENT_NAME_LENGTH = 16
 
 # Action status constants
-ACTION_ACCEPTED = 1
-ACTION_EXECUTING = 2
-ACTION_SUCCEEDED = 3
-ACTION_ABORTED = 4
-ACTION_CANCELED = 5
+class ActionStatus(IntEnum):
+    ACCEPTED = 1
+    EXECUTING = 2
+    SUCCEEDED = 3
+    ABORTED = 4
+    CANCELED = 5

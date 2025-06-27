@@ -14,10 +14,6 @@ using namespace lcmware;
 void run_server() {
     std::cout << "Starting action server..." << std::endl;
     
-    ActionServer<examples::FollowJointTrajectoryGoal, 
-                 examples::FollowJointTrajectoryFeedback,
-                 examples::FollowJointTrajectoryResult> server("demo_robot");
-    
     // Define action handler
     auto trajectory_handler = [](const examples::FollowJointTrajectoryGoal& goal,
                                 std::function<void(const examples::FollowJointTrajectoryFeedback&)> send_feedback) 
@@ -50,8 +46,11 @@ void run_server() {
         return result;
     };
     
-    // Register action
-    server.register_action("follow_trajectory", trajectory_handler);
+    // Create server for specific action channel with handler
+    ActionServer<examples::FollowJointTrajectoryGoal, 
+                 examples::FollowJointTrajectoryFeedback,
+                 examples::FollowJointTrajectoryResult> server(
+                     "/demo_robot/follow_trajectory", trajectory_handler);
     
     // Run server
     server.spin();
@@ -60,10 +59,11 @@ void run_server() {
 void run_client() {
     std::cout << "Starting action client..." << std::endl;
     
-    // Use different client name than Python example
+    // Create client for specific action channel
     ActionClient<examples::FollowJointTrajectoryGoal,
                  examples::FollowJointTrajectoryFeedback,
-                 examples::FollowJointTrajectoryResult> client("demo_robot", "cpp_traj_cli");
+                 examples::FollowJointTrajectoryResult> client(
+                     "/demo_robot/follow_trajectory", "cpp_traj_cli");
     
     try {
         // Create trajectory goal
@@ -88,8 +88,8 @@ void run_client() {
         
         std::cout << "Sending trajectory goal..." << std::endl;
         
-        // Send goal
-        auto handle = client.send_goal("follow_trajectory", goal);
+        // Send goal with typed object
+        auto handle = client.send_goal(goal);
         
         // Add feedback callback
         handle->add_feedback_callback([](const examples::FollowJointTrajectoryFeedback& feedback) {
@@ -108,17 +108,16 @@ void run_client() {
     } catch (const std::exception& e) {
         std::cerr << "Action failed: " << e.what() << std::endl;
     }
-    
-    client.stop();
 }
 
 void run_client_with_cancel() {
     std::cout << "Starting action client with cancellation..." << std::endl;
     
-    // Use different client name, respecting the 16 char limit
+    // Create client for specific action channel
     ActionClient<examples::FollowJointTrajectoryGoal,
                  examples::FollowJointTrajectoryFeedback,
-                 examples::FollowJointTrajectoryResult> client("demo_robot", "cpp_cancel_cli");
+                 examples::FollowJointTrajectoryResult> client(
+                     "/demo_robot/follow_trajectory", "cpp_cancel_cli");
     
     try {
         // Create trajectory goal
@@ -143,8 +142,8 @@ void run_client_with_cancel() {
         
         std::cout << "Sending trajectory goal that will be cancelled..." << std::endl;
         
-        // Send goal
-        auto handle = client.send_goal("follow_trajectory", goal);
+        // Send goal with typed object
+        auto handle = client.send_goal(goal);
         
         // Add feedback callback that cancels after 50%
         handle->add_feedback_callback([&handle](const examples::FollowJointTrajectoryFeedback& feedback) {
@@ -168,8 +167,6 @@ void run_client_with_cancel() {
     } catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << std::endl;
     }
-    
-    client.stop();
 }
 
 int main(int argc, char* argv[]) {
@@ -177,6 +174,12 @@ int main(int argc, char* argv[]) {
                      std::string(argv[1]) != "client" && 
                      std::string(argv[1]) != "cancel")) {
         std::cerr << "Usage: " << argv[0] << " [server|client|cancel]" << std::endl;
+        std::cerr << "" << std::endl;
+        std::cerr << "This example demonstrates the new type-safe LCMware C++ action API:" << std::endl;
+        std::cerr << "- ActionClient and ActionServer are bound to specific channels and types" << std::endl;
+        std::cerr << "- No more generic calls - use typed LCM objects directly" << std::endl;
+        std::cerr << "- Feedback and results are fully type-safe" << std::endl;
+        std::cerr << "- Single shared LCM instance managed automatically" << std::endl;
         return 1;
     }
     

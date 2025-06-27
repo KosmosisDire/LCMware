@@ -1,5 +1,16 @@
 package examples;
 
+// Simple sensor message for topic demos
+struct ImageMessage {
+    core.Header header;
+    int32_t width;
+    int32_t height;
+    int32_t channels;
+    string encoding;
+    int32_t data_size;
+    int8_t data[data_size];
+}
+
 // Service types for simple math operations
 struct AddNumbersRequest {
     core.Header header;

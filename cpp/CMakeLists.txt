@@ -45,6 +45,8 @@ target_compile_options(lcmware INTERFACE
 # Install headers
 install(FILES
     lcmware/constants.hpp
+    lcmware/manager.hpp
+    lcmware/topic.hpp
     lcmware/service.hpp  
     lcmware/action.hpp
     DESTINATION include/lcmware

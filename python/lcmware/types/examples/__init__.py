@@ -10,3 +10,4 @@ from .JointTrajectoryPoint import JointTrajectoryPoint as JointTrajectoryPoint
 from .FollowJointTrajectoryGoal import FollowJointTrajectoryGoal as FollowJointTrajectoryGoal
 from .FollowJointTrajectoryFeedback import FollowJointTrajectoryFeedback as FollowJointTrajectoryFeedback
 from .FollowJointTrajectoryResult import FollowJointTrajectoryResult as FollowJointTrajectoryResult
+from .ImageMessage import ImageMessage as ImageMessage

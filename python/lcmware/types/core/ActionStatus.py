@@ -12,11 +12,11 @@ import core
 class ActionStatus(object):
     """
     Action status values:
-    1 = ACTION_ACCEPTED
-    2 = ACTION_EXECUTING  
-    3 = ACTION_SUCCEEDED
-    4 = ACTION_ABORTED
-    5 = ACTION_CANCELED
+    1 = ActionStatus::ACCEPTED
+    2 = ActionStatus::EXECUTING  
+    3 = ActionStatus::SUCCEEDED
+    4 = ActionStatus::ABORTED
+    5 = ActionStatus::CANCELED
     """
 
     __slots__ = ["header", "status", "message"]

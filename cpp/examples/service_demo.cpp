@@ -9,8 +9,6 @@ using namespace lcmware;
 void run_server() {
     std::cout << "Starting service server..." << std::endl;
     
-    ServiceServer<examples::AddNumbersRequest, examples::AddNumbersResponse> server("demo_robot");
-    
     // Define service handler
     auto add_numbers_handler = [](const examples::AddNumbersRequest& request) -> examples::AddNumbersResponse {
         std::cout << "Received request to add " << request.a << " + " << request.b << std::endl;
@@ -21,8 +19,9 @@ void run_server() {
         return response;
     };
     
-    // Register service
-    server.register_service("add_numbers", add_numbers_handler);
+    // Create server for specific service channel with handler
+    ServiceServer<examples::AddNumbersRequest, examples::AddNumbersResponse> server(
+        "/demo_robot/add_numbers", add_numbers_handler);
     
     // Run server
     server.spin();
@@ -31,8 +30,9 @@ void run_server() {
 void run_client() {
     std::cout << "Starting service client..." << std::endl;
     
-    // Use different client name than Python example
-    ServiceClient<examples::AddNumbersRequest, examples::AddNumbersResponse> client("demo_robot", "cpp_math_cli");
+    // Create client for specific service channel
+    ServiceClient<examples::AddNumbersRequest, examples::AddNumbersResponse> client(
+        "/demo_robot/add_numbers", "cpp_math_cli");
     
     try {
         // First call
@@ -41,7 +41,7 @@ void run_client() {
         request1.a = 5.0;
         request1.b = 3.0;
         
-        auto response1 = client.call("add_numbers", request1);
+        auto response1 = client.call(request1);
         std::cout << "Result: " << response1.sum << std::endl;
         
         // Second call
@@ -49,19 +49,22 @@ void run_client() {
         request2.a = 10.5;
         request2.b = -6.28;
         
-        auto response2 = client.call("add_numbers", request2);
+        auto response2 = client.call(request2);
         std::cout << "Result: " << response2.sum << std::endl;
         
     } catch (const std::exception& e) {
         std::cerr << "Service call failed: " << e.what() << std::endl;
     }
-    
-    client.stop();
 }
 
 int main(int argc, char* argv[]) {
     if (argc != 2 || (std::string(argv[1]) != "server" && std::string(argv[1]) != "client")) {
         std::cerr << "Usage: " << argv[0] << " [server|client]" << std::endl;
+        std::cerr << "" << std::endl;
+        std::cerr << "This example demonstrates the new type-safe LCMware C++ API:" << std::endl;
+        std::cerr << "- ServiceClient and ServiceServer are bound to specific channels and types" << std::endl;
+        std::cerr << "- No more generic calls - use typed LCM objects directly" << std::endl;
+        std::cerr << "- Single shared LCM instance managed automatically" << std::endl;
         return 1;
     }
     
