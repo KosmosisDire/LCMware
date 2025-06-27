@@ -1,0 +1,44 @@
+package examples;
+
+// Service types for simple math operations
+struct AddNumbersRequest {
+    core.Header header;
+    double a;
+    double b;
+}
+
+struct AddNumbersResponse {
+    core.ServiceResponseHeader response_header;
+    double sum;
+}
+
+// Joint trajectory point for action demo
+struct JointTrajectoryPoint {
+    int32_t num_positions;
+    double positions[num_positions];
+    double velocities[num_positions];
+    double accelerations[num_positions];
+    double time_from_start;
+}
+
+// Action types for joint trajectory following
+struct FollowJointTrajectoryGoal {
+    core.Header header;
+    int32_t num_joints;
+    string joint_names[num_joints];
+    int32_t num_points;
+    JointTrajectoryPoint points[num_points];
+}
+
+struct FollowJointTrajectoryFeedback {
+    core.Header header;
+    int32_t current_point;
+    double error;
+    double progress;
+}
+
+struct FollowJointTrajectoryResult {
+    core.ActionStatus status;
+    double final_error;
+    double execution_time;
+}

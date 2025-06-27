@@ -1,0 +1,33 @@
+package core;
+
+// Common header for correlation and timing
+struct Header {
+    int64_t timestamp_us;
+    string id;  // request_id for services, goal_id for actions
+}
+
+// Service response wrapper (all services use this)
+struct ServiceResponseHeader {
+    Header header;
+    boolean success;
+    string error_message;
+}
+
+// Action control messages
+struct ActionCancel {
+    Header header;
+    string goal_id;  // empty string cancels all
+}
+
+// Action status values:
+// 1 = ActionStatus::ACCEPTED
+// 2 = ActionStatus::EXECUTING  
+// 3 = ActionStatus::SUCCEEDED
+// 4 = ActionStatus::ABORTED
+// 5 = ActionStatus::CANCELED
+
+struct ActionStatus {
+    Header header;
+    int8_t status;
+    string message;
+}
