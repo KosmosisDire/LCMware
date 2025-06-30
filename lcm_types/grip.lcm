@@ -1,0 +1,18 @@
+package grip;
+
+struct GripCommand {
+    core.Header header;
+    boolean state;
+    int8_t speed;
+    int8_t force;
+}
+
+struct GripFeedback {
+    core.Header header;
+    int8_t a;
+}
+
+struct GripResult {
+    core.ActionStatus status;
+    int8_t a;
+}
