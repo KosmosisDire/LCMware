@@ -11,21 +11,21 @@ import core
 
 class GripCommand(object):
 
-    __slots__ = ["header", "state", "speed", "force"]
+    __slots__ = ["header", "position", "speed", "force"]
 
-    __typenames__ = ["core.Header", "boolean", "int8_t", "int8_t"]
+    __typenames__ = ["core.Header", "float", "float", "float"]
 
     __dimensions__ = [None, None, None, None]
 
     def __init__(self):
         self.header = core.Header()
         """ LCM Type: core.Header """
-        self.state = False
-        """ LCM Type: boolean """
-        self.speed = 0
-        """ LCM Type: int8_t """
-        self.force = 0
-        """ LCM Type: int8_t """
+        self.position = 0.0
+        """ LCM Type: float """
+        self.speed = 0.0
+        """ LCM Type: float """
+        self.force = 0.0
+        """ LCM Type: float """
 
     def encode(self):
         buf = BytesIO()
@@ -36,7 +36,7 @@ class GripCommand(object):
     def _encode_one(self, buf):
         assert self.header._get_packed_fingerprint() == core.Header._get_packed_fingerprint()
         self.header._encode_one(buf)
-        buf.write(struct.pack(">bbb", self.state, self.speed, self.force))
+        buf.write(struct.pack(">fff", self.position, self.speed, self.force))
 
     @staticmethod
     def decode(data: bytes):
@@ -52,15 +52,14 @@ class GripCommand(object):
     def _decode_one(buf):
         self = GripCommand()
         self.header = core.Header._decode_one(buf)
-        self.state = bool(struct.unpack('b', buf.read(1))[0])
-        self.speed, self.force = struct.unpack(">bb", buf.read(2))
+        self.position, self.speed, self.force = struct.unpack(">fff", buf.read(12))
         return self
 
     @staticmethod
     def _get_hash_recursive(parents):
         if GripCommand in parents: return 0
         newparents = parents + [GripCommand]
-        tmphash = (0xc18787745e75cdc5+ core.Header._get_hash_recursive(newparents)) & 0xffffffffffffffff
+        tmphash = (0xc2e54379d3cca894+ core.Header._get_hash_recursive(newparents)) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None

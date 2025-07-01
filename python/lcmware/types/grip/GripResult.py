@@ -11,17 +11,23 @@ import core
 
 class GripResult(object):
 
-    __slots__ = ["status", "a"]
+    __slots__ = ["status", "state", "position"]
 
-    __typenames__ = ["core.ActionStatus", "int8_t"]
+    __typenames__ = ["core.ActionStatus", "int32_t", "float"]
 
-    __dimensions__ = [None, None]
+    __dimensions__ = [None, None, None]
+
+    MOVING = 1
+    FINISHED = 3
+    OBJECT_FOUND = 4
 
     def __init__(self):
         self.status = core.ActionStatus()
         """ LCM Type: core.ActionStatus """
-        self.a = 0
-        """ LCM Type: int8_t """
+        self.state = 0
+        """ LCM Type: int32_t """
+        self.position = 0.0
+        """ LCM Type: float """
 
     def encode(self):
         buf = BytesIO()
@@ -32,7 +38,7 @@ class GripResult(object):
     def _encode_one(self, buf):
         assert self.status._get_packed_fingerprint() == core.ActionStatus._get_packed_fingerprint()
         self.status._encode_one(buf)
-        buf.write(struct.pack(">b", self.a))
+        buf.write(struct.pack(">if", self.state, self.position))
 
     @staticmethod
     def decode(data: bytes):
@@ -48,14 +54,14 @@ class GripResult(object):
     def _decode_one(buf):
         self = GripResult()
         self.status = core.ActionStatus._decode_one(buf)
-        self.a = struct.unpack(">b", buf.read(1))[0]
+        self.state, self.position = struct.unpack(">if", buf.read(8))
         return self
 
     @staticmethod
     def _get_hash_recursive(parents):
         if GripResult in parents: return 0
         newparents = parents + [GripResult]
-        tmphash = (0xef2c6048f7c1578f+ core.ActionStatus._get_hash_recursive(newparents)) & 0xffffffffffffffff
+        tmphash = (0x3b4318f88964ec57+ core.ActionStatus._get_hash_recursive(newparents)) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None

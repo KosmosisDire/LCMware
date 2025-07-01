@@ -169,7 +169,7 @@ class ActionHandle(Generic[GoalT, FeedbackT, ResultT]):
             if status == ActionStatus.SUCCEEDED:
                 self._result_future.set_result(result)
             else:
-                error_msg = f"Action failed with status {status}"
+                error_msg = f"Action failed with status {status}: {result.status.message if hasattr(result, 'status') else 'No message provided'}"
                 self._result_future.set_exception(RuntimeError(error_msg))
 
 
@@ -519,7 +519,6 @@ class ActionServer(Generic[GoalT, FeedbackT, ResultT]):
                     _validate_message_instance(result, self._result_type, "handler result")
                     
                     status = ActionStatus.SUCCEEDED
-                    error_msg = ""
                     
                 except Exception as e:
                     logger.error(f"Action handler error: {e}")
@@ -528,12 +527,13 @@ class ActionServer(Generic[GoalT, FeedbackT, ResultT]):
                     result = self._result_type()
                     status = ActionStatus.ABORTED
                     error_msg = str(e)
+                    result.status.message = error_msg
+
                 
                 # Set result status
                 result.status.header.timestamp_us = int(time.time() * 1e6)
                 result.status.header.id = goal_id
                 result.status.status = status
-                result.status.message = error_msg
                 
                 # Send result
                 res_channel = f"{self._action_channel}/res/{goal_id}"

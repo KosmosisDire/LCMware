@@ -11,17 +11,23 @@ import core
 
 class GripFeedback(object):
 
-    __slots__ = ["header", "a"]
+    __slots__ = ["header", "state", "position"]
 
-    __typenames__ = ["core.Header", "int8_t"]
+    __typenames__ = ["core.Header", "int32_t", "float"]
 
-    __dimensions__ = [None, None]
+    __dimensions__ = [None, None, None]
+
+    MOVING = 1
+    FINISHED = 3
+    OBJECT_FOUND = 4
 
     def __init__(self):
         self.header = core.Header()
         """ LCM Type: core.Header """
-        self.a = 0
-        """ LCM Type: int8_t """
+        self.state = 0
+        """ LCM Type: int32_t """
+        self.position = 0.0
+        """ LCM Type: float """
 
     def encode(self):
         buf = BytesIO()
@@ -32,7 +38,7 @@ class GripFeedback(object):
     def _encode_one(self, buf):
         assert self.header._get_packed_fingerprint() == core.Header._get_packed_fingerprint()
         self.header._encode_one(buf)
-        buf.write(struct.pack(">b", self.a))
+        buf.write(struct.pack(">if", self.state, self.position))
 
     @staticmethod
     def decode(data: bytes):
@@ -48,14 +54,14 @@ class GripFeedback(object):
     def _decode_one(buf):
         self = GripFeedback()
         self.header = core.Header._decode_one(buf)
-        self.a = struct.unpack(">b", buf.read(1))[0]
+        self.state, self.position = struct.unpack(">if", buf.read(8))
         return self
 
     @staticmethod
     def _get_hash_recursive(parents):
         if GripFeedback in parents: return 0
         newparents = parents + [GripFeedback]
-        tmphash = (0xd12c8028f9c15763+ core.Header._get_hash_recursive(newparents)) & 0xffffffffffffffff
+        tmphash = (0xc4bd388d776a15d9+ core.Header._get_hash_recursive(newparents)) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None

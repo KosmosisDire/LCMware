@@ -2,17 +2,21 @@ package grip;
 
 struct GripCommand {
     core.Header header;
-    boolean state;
-    int8_t speed;
-    int8_t force;
+    float position;
+    float speed;
+    float force;
 }
 
 struct GripFeedback {
+    const int32_t MOVING=1, FINISHED=3, OBJECT_FOUND=4;
     core.Header header;
-    int8_t a;
+    int32_t state;
+    float position;
 }
 
 struct GripResult {
+    const int32_t MOVING=1, FINISHED=3, OBJECT_FOUND=4;
     core.ActionStatus status;
-    int8_t a;
+    int32_t state;
+    float position;
 }
