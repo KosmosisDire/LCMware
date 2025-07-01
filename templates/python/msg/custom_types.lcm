@@ -1,0 +1,13 @@
+package custom_package
+
+struct Point
+{
+    double x, y;
+}
+
+struct PointArray
+{
+    core.Header header;
+    int32_t npoints;
+    Point points[npoints];
+}
