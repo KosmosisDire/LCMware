@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+find_dependency(PkgConfig REQUIRED)
+
+if(NOT TARGET lcmware)
+    include("${CMAKE_CURRENT_LIST_DIR}/lcmware-targets.cmake")
+endif()
+
+check_required_components(lcmware)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Example demonstrating LCMware topic usage with new type-safe API"""
+"""Example demonstrating lcmware topic usage with new type-safe API"""
 
 import sys
 import time
@@ -122,7 +122,7 @@ def main():
     if len(sys.argv) != 2 or sys.argv[1] not in ["publisher", "subscriber", "multi"]:
         print(f"Usage: {sys.argv[0]} [publisher|subscriber|multi]")
         print("")
-        print("This example demonstrates the new type-safe LCMware topic API:")
+        print("This example demonstrates the new type-safe lcmware topic API:")
         print("- TopicPublisher and TopicSubscriber are bound to specific channels and types")
         print("- No more generic publish/subscribe - use typed LCM objects directly")
         print("- Each publisher/subscriber represents a single channel with a single type")

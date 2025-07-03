@@ -1,4 +1,4 @@
-"""Topic publisher and subscriber classes for LCMware"""
+"""Topic publisher and subscriber classes for lcmware"""
 
 import time
 from typing import TypeVar, Generic, Type, Callable, Optional, Protocol

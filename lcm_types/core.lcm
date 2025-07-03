@@ -7,7 +7,7 @@ struct Header {
 }
 
 // Service response wrapper (all services use this)
-struct ServiceResponseHeader {
+struct ResponseHeader {
     Header header;
     boolean success;
     string error_message;
@@ -37,62 +37,62 @@ struct ActionStatus {
 // ========================================
 
 // Empty message
-struct Empty {
+struct EmptyMsg {
     Header header;
 }
 
 // Primitive data types
-struct Bool {
+struct BoolMsg {
     Header header;
     boolean value;
 }
 
-struct UInt32 {
+struct UInt32Msg {
     Header header;
     int32_t value;
 }
 
-struct UInt64 {
+struct UInt64Msg {
     Header header;
     int64_t value;
 }
 
-struct Double {
+struct DoubleMsg {
     Header header;
     double value;
 }
 
-struct String {
+struct StringMsg {
     Header header;
     string value;
 }
 
 // Array types
-struct ByteArray {
+struct ByteArrayMsg {
     Header header;
     int32_t data_size;
     int8_t data[data_size];
 }
 
-struct IntArray {
+struct IntArrayMsg {
     Header header;
     int32_t data_size;
     int32_t data[data_size];
 }
 
-struct DoubleArray {
+struct DoubleArrayMsg {
     Header header;
     int32_t data_size;
     double data[data_size];
 }
 
-struct BoolArray {
+struct BoolArrayMsg {
     Header header;
     int32_t data_size;
     boolean data[data_size];
 }
 
-struct StringArray {
+struct StringArrayMsg {
     Header header;
     int32_t data_size;
     string data[data_size];
@@ -103,73 +103,73 @@ struct StringArray {
 // ========================================
 
 // Empty service (ping/health check)
-struct EmptyServiceRequest {
+struct EmptyRequest {
     Header header;
 }
 
-struct EmptyServiceResponse {
-    ServiceResponseHeader response_header;
+struct EmptyResponse {
+    ResponseHeader response_header;
 }
 
 // Basic data service requests/responses
-struct BoolServiceRequest {
+struct BoolRequest {
     Header header;
     boolean value;
 }
 
-struct BoolServiceResponse {
-    ServiceResponseHeader response_header;
+struct BoolResponse {
+    ResponseHeader response_header;
     boolean result;
 }
 
-struct UInt32ServiceRequest {
+struct UInt32Request {
     Header header;
     int32_t value;
 }
 
-struct UInt32ServiceResponse {
-    ServiceResponseHeader response_header;
+struct UInt32Response {
+    ResponseHeader response_header;
     int32_t result;
 }
 
-struct UInt64ServiceRequest {
+struct UInt64Request {
     Header header;
     int64_t value;
 }
 
-struct UInt64ServiceResponse {
-    ServiceResponseHeader response_header;
+struct UInt64Response {
+    ResponseHeader response_header;
     int64_t result;
 }
 
-struct DoubleServiceRequest {
+struct DoubleRequest {
     Header header;
     double value;
 }
 
-struct DoubleServiceResponse {
-    ServiceResponseHeader response_header;
+struct DoubleResponse {
+    ResponseHeader response_header;
     double result;
 }
 
-struct StringServiceRequest {
+struct StringRequest {
     Header header;
     string value;
 }
 
-struct StringServiceResponse {
-    ServiceResponseHeader response_header;
+struct StringResponse {
+    ResponseHeader response_header;
     string result;
 }
 
-struct ByteArrayServiceRequest {
+struct ByteArrayRequest {
     Header header;
     int32_t data_size;
     int8_t data[data_size];
 }
 
-struct ByteArrayServiceResponse {
-    ServiceResponseHeader response_header;
+struct ByteArrayResponse {
+    ResponseHeader response_header;
     int32_t data_size;
     int8_t data[data_size];
 }
@@ -237,13 +237,13 @@ struct ProcessDataResult {
 // ========================================
 
 // Key-Value pair
-struct KeyValue {
+struct KeyValueMsg {
     Header header;
     string key;
     string value;
 }
 
-struct KeyValueArray {
+struct KeyValueArrayMsg {
     Header header;
     int32_t pairs_size;
     string keys[pairs_size];
@@ -251,7 +251,7 @@ struct KeyValueArray {
 }
 
 // Generic command/response
-struct Command {
+struct CommandMsg {
     Header header;
     string command;
     int32_t args_size;
@@ -259,7 +259,7 @@ struct Command {
 }
 
 struct CommandResponse {
-    ServiceResponseHeader response_header;
+    ResponseHeader response_header;
     int32_t exit_code;
     string stdout_output;
     string stderr_output;
@@ -275,7 +275,7 @@ struct FileRequest {
 }
 
 struct FileResponse {
-    ServiceResponseHeader response_header;
+    ResponseHeader response_header;
     int32_t data_size;
     int8_t data[data_size];  // file contents or directory listing
     int64_t file_size;
@@ -283,7 +283,7 @@ struct FileResponse {
 }
 
 // System status
-struct SystemStatus {
+struct SystemStatusMsg {
     Header header;
     string node_name;
     string status;  // "healthy", "warning", "error", "unknown"
@@ -295,14 +295,14 @@ struct SystemStatus {
 }
 
 // Heartbeat/ping
-struct Heartbeat {
+struct HeartbeatRequest {
     Header header;
     string node_name;
     int64_t sequence_number;
 }
 
 struct HeartbeatResponse {
-    ServiceResponseHeader response_header;
+    ResponseHeader response_header;
     int64_t server_timestamp_us;
     string server_name;
 }

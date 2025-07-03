@@ -13,13 +13,13 @@ class CommandResponse(object):
 
     __slots__ = ["response_header", "exit_code", "stdout_output", "stderr_output"]
 
-    __typenames__ = ["core.ServiceResponseHeader", "int32_t", "string", "string"]
+    __typenames__ = ["core.ResponseHeader", "int32_t", "string", "string"]
 
     __dimensions__ = [None, None, None, None]
 
     def __init__(self):
-        self.response_header = core.ServiceResponseHeader()
-        """ LCM Type: core.ServiceResponseHeader """
+        self.response_header = core.ResponseHeader()
+        """ LCM Type: core.ResponseHeader """
         self.exit_code = 0
         """ LCM Type: int32_t """
         self.stdout_output = ""
@@ -34,7 +34,7 @@ class CommandResponse(object):
         return buf.getvalue()
 
     def _encode_one(self, buf):
-        assert self.response_header._get_packed_fingerprint() == core.ServiceResponseHeader._get_packed_fingerprint()
+        assert self.response_header._get_packed_fingerprint() == core.ResponseHeader._get_packed_fingerprint()
         self.response_header._encode_one(buf)
         buf.write(struct.pack(">i", self.exit_code))
         __stdout_output_encoded = self.stdout_output.encode('utf-8')
@@ -59,7 +59,7 @@ class CommandResponse(object):
     @staticmethod
     def _decode_one(buf):
         self = CommandResponse()
-        self.response_header = core.ServiceResponseHeader._decode_one(buf)
+        self.response_header = core.ResponseHeader._decode_one(buf)
         self.exit_code = struct.unpack(">i", buf.read(4))[0]
         __stdout_output_len = struct.unpack('>I', buf.read(4))[0]
         self.stdout_output = buf.read(__stdout_output_len)[:-1].decode('utf-8', 'replace')
@@ -71,7 +71,7 @@ class CommandResponse(object):
     def _get_hash_recursive(parents):
         if CommandResponse in parents: return 0
         newparents = parents + [CommandResponse]
-        tmphash = (0x4a22f509f80490e9+ core.ServiceResponseHeader._get_hash_recursive(newparents)) & 0xffffffffffffffff
+        tmphash = (0x4a22f509f80490e9+ core.ResponseHeader._get_hash_recursive(newparents)) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None

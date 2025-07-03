@@ -10,7 +10,7 @@
 #include <lcm/lcm_coretypes.h>
 
 #include <vector>
-#include "core/ServiceResponseHeader.hpp"
+#include "core/ResponseHeader.hpp"
 
 namespace core
 {
@@ -18,7 +18,7 @@ namespace core
 class FileResponse
 {
     public:
-        core::ServiceResponseHeader response_header;
+        core::ResponseHeader response_header;
 
         int32_t    data_size;
 
@@ -195,7 +195,7 @@ uint64_t FileResponse::_computeHash(const __lcm_hash_ptr *p)
     const __lcm_hash_ptr cp = { p, FileResponse::getHash };
 
     uint64_t hash = 0xac80d7c5b8cb8182LL +
-         core::ServiceResponseHeader::_computeHash(&cp);
+         core::ResponseHeader::_computeHash(&cp);
 
     return (hash<<1) + ((hash>>63)&1);
 }

@@ -22,7 +22,7 @@ echo "Generating C++ types..."
 lcm-gen --cpp --cpp-hpath "$PROJECT_ROOT/cpp/lcmware/types" "$SCRIPT_DIR"/*.lcm
 
 echo "Generating Java types..."
-lcm-gen --java --jpath "$PROJECT_ROOT/java/" "$SCRIPT_DIR"/*.lcm
+lcm-gen --java --jpath "$PROJECT_ROOT/java/lcmware/types" "$SCRIPT_DIR"/*.lcm
 
 echo "Type generation complete!"
 echo "Python types generated in: $PROJECT_ROOT/python/lcmware/types"

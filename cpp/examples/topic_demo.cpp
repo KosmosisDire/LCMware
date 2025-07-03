@@ -117,7 +117,7 @@ int main(int argc, char* argv[]) {
                      std::string(argv[1]) != "multi")) {
         std::cerr << "Usage: " << argv[0] << " [publisher|subscriber|multi]" << std::endl;
         std::cerr << "" << std::endl;
-        std::cerr << "This example demonstrates the new type-safe LCMware C++ topic API:" << std::endl;
+        std::cerr << "This example demonstrates the new type-safe lcmware C++ topic API:" << std::endl;
         std::cerr << "- TopicPublisher and TopicSubscriber are bound to specific channels and types" << std::endl;
         std::cerr << "- No more generic publish/subscribe - use typed LCM objects directly" << std::endl;
         std::cerr << "- Each publisher/subscriber represents a single channel with a single type" << std::endl;

@@ -1,4 +1,4 @@
-"""Action client and server implementation for LCMware"""
+"""Action client and server implementation for lcmware"""
 
 import time
 import uuid

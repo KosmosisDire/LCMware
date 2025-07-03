@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Example demonstrating LCMware service usage with new type-safe API"""
+"""Example demonstrating lcmware service usage with new type-safe API"""
 
 import sys
 import logging
@@ -66,7 +66,7 @@ def main():
     if len(sys.argv) != 2 or sys.argv[1] not in ["server", "client"]:
         print(f"Usage: {sys.argv[0]} [server|client]")
         print("")
-        print("This example demonstrates the new type-safe LCMware API:")
+        print("This example demonstrates the new type-safe lcmware API:")
         print("- ServiceClient and ServiceServer are bound to specific channels and types")
         print("- No more generic calls with dictionaries - use typed LCM objects")
         print("- Single shared LCM instance managed automatically")

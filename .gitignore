@@ -86,3 +86,6 @@ compile_commands.json
 cpp/examples/service_demo
 cpp/examples/action_demo
 python/examples/*.pyc
+
+*.jar
+*.class

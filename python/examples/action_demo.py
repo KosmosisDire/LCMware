@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Example demonstrating LCMware action usage with new type-safe API"""
+"""Example demonstrating lcmware action usage with new type-safe API"""
 
 import sys
 import time
@@ -174,7 +174,7 @@ def main():
     if len(sys.argv) != 2 or sys.argv[1] not in ["server", "client", "cancel"]:
         print(f"Usage: {sys.argv[0]} [server|client|cancel]")
         print("")
-        print("This example demonstrates the new type-safe LCMware action API:")
+        print("This example demonstrates the new type-safe lcmware action API:")
         print("- ActionClient and ActionServer are bound to specific channels and types")
         print("- No more generic calls with dictionaries - use typed LCM objects")
         print("- Feedback and results are fully type-safe")

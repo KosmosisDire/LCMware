@@ -9,7 +9,7 @@
 
 #include <lcm/lcm_coretypes.h>
 
-#include "core/ServiceResponseHeader.hpp"
+#include "core/ResponseHeader.hpp"
 
 namespace examples
 {
@@ -17,7 +17,7 @@ namespace examples
 class AddNumbersResponse
 {
     public:
-        core::ServiceResponseHeader response_header;
+        core::ResponseHeader response_header;
 
         double     sum;
 
@@ -156,7 +156,7 @@ uint64_t AddNumbersResponse::_computeHash(const __lcm_hash_ptr *p)
     const __lcm_hash_ptr cp = { p, AddNumbersResponse::getHash };
 
     uint64_t hash = 0xa0c2e19c6be048afLL +
-         core::ServiceResponseHeader::_computeHash(&cp);
+         core::ResponseHeader::_computeHash(&cp);
 
     return (hash<<1) + ((hash>>63)&1);
 }

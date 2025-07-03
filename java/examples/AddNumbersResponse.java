@@ -12,7 +12,7 @@ import lcm.lcm.*;
  
 public final class AddNumbersResponse implements lcm.lcm.LCMEncodable
 {
-    public core.ServiceResponseHeader response_header;
+    public core.ResponseHeader response_header;
 
     public double sum;
 
@@ -35,7 +35,7 @@ public final class AddNumbersResponse implements lcm.lcm.LCMEncodable
  
         classes.add(examples.AddNumbersResponse.class);
         long hash = LCM_FINGERPRINT_BASE
-             + core.ServiceResponseHeader._hashRecursive(classes)
+             + core.ResponseHeader._hashRecursive(classes)
             ;
         classes.remove(classes.size() - 1);
         return (hash<<1) + ((hash>>63)&1);
@@ -77,7 +77,7 @@ public final class AddNumbersResponse implements lcm.lcm.LCMEncodable
  
     public void _decodeRecursive(DataInput ins) throws IOException
     {
-        this.response_header = core.ServiceResponseHeader._decodeRecursiveFactory(ins);
+        this.response_header = core.ResponseHeader._decodeRecursiveFactory(ins);
  
         this.sum = ins.readDouble();
  

@@ -1,4 +1,4 @@
-"""Service client and server implementation for LCMware"""
+"""Service client and server implementation for lcmware"""
 
 import time
 import uuid

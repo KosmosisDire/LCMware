@@ -10,7 +10,7 @@
 #include <lcm/lcm_coretypes.h>
 
 #include <string>
-#include "core/ServiceResponseHeader.hpp"
+#include "core/ResponseHeader.hpp"
 
 namespace core
 {
@@ -18,7 +18,7 @@ namespace core
 class CommandResponse
 {
     public:
-        core::ServiceResponseHeader response_header;
+        core::ResponseHeader response_header;
 
         int32_t    exit_code;
 
@@ -191,7 +191,7 @@ uint64_t CommandResponse::_computeHash(const __lcm_hash_ptr *p)
     const __lcm_hash_ptr cp = { p, CommandResponse::getHash };
 
     uint64_t hash = 0x4a22f509f80490e9LL +
-         core::ServiceResponseHeader::_computeHash(&cp);
+         core::ResponseHeader::_computeHash(&cp);
 
     return (hash<<1) + ((hash>>63)&1);
 }

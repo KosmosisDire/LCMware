@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-LCMware is a lightweight RPC framework built on top of LCM (Lightweight Communications and Marshaling) that provides type-safe topics, services, and actions while leveraging LCM's native pub/sub and type marshaling. It uses strongly-typed LCM messages with a single managed LCM instance.
+lcmware is a lightweight RPC framework built on top of LCM (Lightweight Communications and Marshaling) that provides type-safe topics, services, and actions while leveraging LCM's native pub/sub and type marshaling. It uses strongly-typed LCM messages with a single managed LCM instance.
 
 ## Architecture
 

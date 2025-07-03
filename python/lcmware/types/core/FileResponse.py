@@ -13,13 +13,13 @@ class FileResponse(object):
 
     __slots__ = ["response_header", "data_size", "data", "file_size", "modified_time"]
 
-    __typenames__ = ["core.ServiceResponseHeader", "int32_t", "int8_t", "int64_t", "int64_t"]
+    __typenames__ = ["core.ResponseHeader", "int32_t", "int8_t", "int64_t", "int64_t"]
 
     __dimensions__ = [None, None, ["data_size"], None, None]
 
     def __init__(self):
-        self.response_header = core.ServiceResponseHeader()
-        """ LCM Type: core.ServiceResponseHeader """
+        self.response_header = core.ResponseHeader()
+        """ LCM Type: core.ResponseHeader """
         self.data_size = 0
         """ LCM Type: int32_t """
         self.data = []
@@ -40,7 +40,7 @@ class FileResponse(object):
         return buf.getvalue()
 
     def _encode_one(self, buf):
-        assert self.response_header._get_packed_fingerprint() == core.ServiceResponseHeader._get_packed_fingerprint()
+        assert self.response_header._get_packed_fingerprint() == core.ResponseHeader._get_packed_fingerprint()
         self.response_header._encode_one(buf)
         buf.write(struct.pack(">i", self.data_size))
         buf.write(struct.pack('>%db' % self.data_size, *self.data[:self.data_size]))
@@ -59,7 +59,7 @@ class FileResponse(object):
     @staticmethod
     def _decode_one(buf):
         self = FileResponse()
-        self.response_header = core.ServiceResponseHeader._decode_one(buf)
+        self.response_header = core.ResponseHeader._decode_one(buf)
         self.data_size = struct.unpack(">i", buf.read(4))[0]
         self.data = struct.unpack('>%db' % self.data_size, buf.read(self.data_size))
         self.file_size, self.modified_time = struct.unpack(">qq", buf.read(16))
@@ -69,7 +69,7 @@ class FileResponse(object):
     def _get_hash_recursive(parents):
         if FileResponse in parents: return 0
         newparents = parents + [FileResponse]
-        tmphash = (0xac80d7c5b8cb8182+ core.ServiceResponseHeader._get_hash_recursive(newparents)) & 0xffffffffffffffff
+        tmphash = (0xac80d7c5b8cb8182+ core.ResponseHeader._get_hash_recursive(newparents)) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None

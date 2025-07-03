@@ -175,7 +175,7 @@ int main(int argc, char* argv[]) {
                      std::string(argv[1]) != "cancel")) {
         std::cerr << "Usage: " << argv[0] << " [server|client|cancel]" << std::endl;
         std::cerr << "" << std::endl;
-        std::cerr << "This example demonstrates the new type-safe LCMware C++ action API:" << std::endl;
+        std::cerr << "This example demonstrates the new type-safe lcmware C++ action API:" << std::endl;
         std::cerr << "- ActionClient and ActionServer are bound to specific channels and types" << std::endl;
         std::cerr << "- No more generic calls - use typed LCM objects directly" << std::endl;
         std::cerr << "- Feedback and results are fully type-safe" << std::endl;

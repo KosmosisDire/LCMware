@@ -13,13 +13,13 @@ class HeartbeatResponse(object):
 
     __slots__ = ["response_header", "server_timestamp_us", "server_name"]
 
-    __typenames__ = ["core.ServiceResponseHeader", "int64_t", "string"]
+    __typenames__ = ["core.ResponseHeader", "int64_t", "string"]
 
     __dimensions__ = [None, None, None]
 
     def __init__(self):
-        self.response_header = core.ServiceResponseHeader()
-        """ LCM Type: core.ServiceResponseHeader """
+        self.response_header = core.ResponseHeader()
+        """ LCM Type: core.ResponseHeader """
         self.server_timestamp_us = 0
         """ LCM Type: int64_t """
         self.server_name = ""
@@ -32,7 +32,7 @@ class HeartbeatResponse(object):
         return buf.getvalue()
 
     def _encode_one(self, buf):
-        assert self.response_header._get_packed_fingerprint() == core.ServiceResponseHeader._get_packed_fingerprint()
+        assert self.response_header._get_packed_fingerprint() == core.ResponseHeader._get_packed_fingerprint()
         self.response_header._encode_one(buf)
         buf.write(struct.pack(">q", self.server_timestamp_us))
         __server_name_encoded = self.server_name.encode('utf-8')
@@ -53,7 +53,7 @@ class HeartbeatResponse(object):
     @staticmethod
     def _decode_one(buf):
         self = HeartbeatResponse()
-        self.response_header = core.ServiceResponseHeader._decode_one(buf)
+        self.response_header = core.ResponseHeader._decode_one(buf)
         self.server_timestamp_us = struct.unpack(">q", buf.read(8))[0]
         __server_name_len = struct.unpack('>I', buf.read(4))[0]
         self.server_name = buf.read(__server_name_len)[:-1].decode('utf-8', 'replace')
@@ -63,7 +63,7 @@ class HeartbeatResponse(object):
     def _get_hash_recursive(parents):
         if HeartbeatResponse in parents: return 0
         newparents = parents + [HeartbeatResponse]
-        tmphash = (0x9e7b39a2c45d0a1a+ core.ServiceResponseHeader._get_hash_recursive(newparents)) & 0xffffffffffffffff
+        tmphash = (0x9e7b39a2c45d0a1a+ core.ResponseHeader._get_hash_recursive(newparents)) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None

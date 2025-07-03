@@ -66,7 +66,27 @@ install(TARGETS lcmware
 )
 
 install(EXPORT lcmware-targets
-    FILE lcmware-config.cmake
+    FILE lcmware-targets.cmake
+    DESTINATION lib/cmake/lcmware
+)
+
+# Create and install package config file
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/lcmware-config-version.cmake"
+    VERSION 1.0.0
+    COMPATIBILITY SameMajorVersion
+)
+
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/lcmware-config.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/lcmware-config.cmake"
+    INSTALL_DESTINATION lib/cmake/lcmware
+)
+
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/lcmware-config.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/lcmware-config-version.cmake"
     DESTINATION lib/cmake/lcmware
 )
 

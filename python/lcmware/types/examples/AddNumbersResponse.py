@@ -13,13 +13,13 @@ class AddNumbersResponse(object):
 
     __slots__ = ["response_header", "sum"]
 
-    __typenames__ = ["core.ServiceResponseHeader", "double"]
+    __typenames__ = ["core.ResponseHeader", "double"]
 
     __dimensions__ = [None, None]
 
     def __init__(self):
-        self.response_header = core.ServiceResponseHeader()
-        """ LCM Type: core.ServiceResponseHeader """
+        self.response_header = core.ResponseHeader()
+        """ LCM Type: core.ResponseHeader """
         self.sum = 0.0
         """ LCM Type: double """
 
@@ -30,7 +30,7 @@ class AddNumbersResponse(object):
         return buf.getvalue()
 
     def _encode_one(self, buf):
-        assert self.response_header._get_packed_fingerprint() == core.ServiceResponseHeader._get_packed_fingerprint()
+        assert self.response_header._get_packed_fingerprint() == core.ResponseHeader._get_packed_fingerprint()
         self.response_header._encode_one(buf)
         buf.write(struct.pack(">d", self.sum))
 
@@ -47,7 +47,7 @@ class AddNumbersResponse(object):
     @staticmethod
     def _decode_one(buf):
         self = AddNumbersResponse()
-        self.response_header = core.ServiceResponseHeader._decode_one(buf)
+        self.response_header = core.ResponseHeader._decode_one(buf)
         self.sum = struct.unpack(">d", buf.read(8))[0]
         return self
 
@@ -55,7 +55,7 @@ class AddNumbersResponse(object):
     def _get_hash_recursive(parents):
         if AddNumbersResponse in parents: return 0
         newparents = parents + [AddNumbersResponse]
-        tmphash = (0xa0c2e19c6be048af+ core.ServiceResponseHeader._get_hash_recursive(newparents)) & 0xffffffffffffffff
+        tmphash = (0xa0c2e19c6be048af+ core.ResponseHeader._get_hash_recursive(newparents)) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None

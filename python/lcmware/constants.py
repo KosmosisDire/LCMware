@@ -1,4 +1,4 @@
-"""Constants for LCMware framework"""
+"""Constants for lcmware framework"""
 
 from enum import IntEnum
 

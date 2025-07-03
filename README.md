@@ -1,4 +1,4 @@
-# LCMware
+# lcmware
 
 A lightweight RPC framework built on top of [LCM (Lightweight Communications and Marshaling)](https://lcm-proj.github.io/) that provides type-safe topics, services, and actions with strongly-typed LCM messages and a single managed LCM instance.
 
@@ -44,6 +44,10 @@ sudo make install          # Optional: install system-wide
 ```
 
 ## Quick Start Examples
+
+### Cloning Template Projects
+
+C++ Template: https://github.com/KosmosisDire/lcmware-template-cpp
 
 ### Topics (Pub/Sub)
 
@@ -310,7 +314,7 @@ cd cpp/build
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LCM REQUIRED lcm)
 
-# If LCMware is installed system-wide
+# If lcmware is installed system-wide
 find_package(lcmware REQUIRED)
 target_link_libraries(your_target lcmware ${LCM_LIBRARIES})
 
@@ -373,7 +377,7 @@ pub = TopicPublisher("/camera/raw", ImageMessage)
 
 ### Architecture
 
-LCMware uses three communication patterns:
+lcmware uses three communication patterns:
 
 1. **Topics**: Direct LCM pub/sub with full channel paths
    - Publisher/Subscriber bound to specific channels and message types

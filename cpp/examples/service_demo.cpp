@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
     if (argc != 2 || (std::string(argv[1]) != "server" && std::string(argv[1]) != "client")) {
         std::cerr << "Usage: " << argv[0] << " [server|client]" << std::endl;
         std::cerr << "" << std::endl;
-        std::cerr << "This example demonstrates the new type-safe LCMware C++ API:" << std::endl;
+        std::cerr << "This example demonstrates the new type-safe lcmware C++ API:" << std::endl;
         std::cerr << "- ServiceClient and ServiceServer are bound to specific channels and types" << std::endl;
         std::cerr << "- No more generic calls - use typed LCM objects directly" << std::endl;
         std::cerr << "- Single shared LCM instance managed automatically" << std::endl;

@@ -19,7 +19,7 @@ struct AddNumbersRequest {
 }
 
 struct AddNumbersResponse {
-    core.ServiceResponseHeader response_header;
+    core.ResponseHeader response_header;
     double sum;
 }
 

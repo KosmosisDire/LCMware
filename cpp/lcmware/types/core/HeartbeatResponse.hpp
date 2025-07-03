@@ -10,7 +10,7 @@
 #include <lcm/lcm_coretypes.h>
 
 #include <string>
-#include "core/ServiceResponseHeader.hpp"
+#include "core/ResponseHeader.hpp"
 
 namespace core
 {
@@ -18,7 +18,7 @@ namespace core
 class HeartbeatResponse
 {
     public:
-        core::ServiceResponseHeader response_header;
+        core::ResponseHeader response_header;
 
         int64_t    server_timestamp_us;
 
@@ -174,7 +174,7 @@ uint64_t HeartbeatResponse::_computeHash(const __lcm_hash_ptr *p)
     const __lcm_hash_ptr cp = { p, HeartbeatResponse::getHash };
 
     uint64_t hash = 0x9e7b39a2c45d0a1aLL +
-         core::ServiceResponseHeader::_computeHash(&cp);
+         core::ResponseHeader::_computeHash(&cp);
 
     return (hash<<1) + ((hash>>63)&1);
 }

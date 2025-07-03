@@ -8,7 +8,7 @@ setup(
         "lcm",
     ],
     python_requires=">=3.6",
-    description="LCMware - LCM-based RPC framework for services and actions",
+    description="lcmware - LCM-based RPC framework for services and actions",
     author="Your Name",
     license="MIT",
 )
