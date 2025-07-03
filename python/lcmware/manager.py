@@ -8,6 +8,20 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
+def build_messages(path: str) -> None:
+    """Build all LCM messages from the specified path"""
+    
+    import subprocess, os
+    
+    # Construct the bash command
+    bash_command = f'lcm-gen --lazy --python --ppath "./" "{os.path.join("./", path)}/"*.lcm'
+    
+    try:
+        subprocess.run(bash_command, shell=True, check=True)
+        logger.info(f"LCM messages built successfully from {path}")
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Failed to build LCM messages from {path}: {e}\nEnsure lcm-gen is installed and in PATH.")
+
 
 class LCMManager:
     """Singleton manager for LCM instance to ensure single shared instance across all clients/servers"""

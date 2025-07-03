@@ -48,6 +48,7 @@ sudo make install          # Optional: install system-wide
 ### Cloning Template Projects
 
 C++ Template: https://github.com/KosmosisDire/lcmware-template-cpp
+Python Template: https://github.com/KosmosisDire/lcmware-template-python
 
 ### Topics (Pub/Sub)
 

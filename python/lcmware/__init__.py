@@ -1,6 +1,6 @@
 """lcmware - Type-safe RPC over LCM"""
 
-from .manager import LCMManager, get_lcm, start_lcm_handler, stop_lcm_handler
+from .manager import LCMManager, get_lcm, start_lcm_handler, stop_lcm_handler, build_messages
 from .topic import TopicPublisher, TopicSubscriber
 from .service import ServiceClient, ServiceServer
 from .action import ActionClient, ActionServer, ActionHandle
@@ -12,6 +12,7 @@ from .constants import (
 __all__ = [
     # LCM Management
     "LCMManager",
+    "build_messages",
     "get_lcm",
     "start_lcm_handler", 
     "stop_lcm_handler",
