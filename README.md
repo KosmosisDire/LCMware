@@ -40,7 +40,7 @@ cd cpp
 mkdir build && cd build
 cmake .. -DBUILD_EXAMPLES=ON
 make
-sudo make install          # Optional: install system-wide
+sudo make install
 ```
 
 ## Quick Start Examples
